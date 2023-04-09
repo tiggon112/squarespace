@@ -1,18 +1,124 @@
-const fetch = require("node-fetch");
-// const mysql = require("mysql");
+const express = require('express');
+const moment = require('moment');
+const cors = require('cors');
+const app = express()
 
-// const connection = mysql.createConnection({
-//   host: "69.16.221.136",
-//   user: "ecanet",
-//   password: "jYy#Ge2Yh=dg",
-// });
+const mysql = require("mysql");
 
-// connection.connect((err) => {
-//   console.log(err)
-//   if (err) throw err;
-//   console.log('Connected!');
-// });
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "QWE@#$asd234",
+  database: "tiggon"
+});
 
-fetch.get("https://api.squarespace.com/1.0/commerce/orders")
-  .then(res=>res.json())
-  .then(res=>console.log(res));
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected!');
+});
+
+app.use(cors({
+  origin: "*",
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+}));
+
+app.get('/', (req, res) => {
+  const get_sql = "SELECT * FROM orders ORDER BY order_id";
+
+  connection.query(get_sql, (err, result) => {
+    console.log(result);
+
+    res.json(result.map((data) => {
+      return {
+        ...data,
+        purchase_date: moment(data.purchase_date).format('YYYY-MM-DD'),
+      }
+    }));
+  })
+})
+
+app.listen(5000, () => {
+  console.log('Example app listening on port 5000!');
+
+})
+
+setInterval(() => {
+  fetch("https://api.squarespace.com/1.0/commerce/orders", {
+    headers: {
+      "Authorization": "Bearer 9a0ca67c-6e6c-4015-b660-6bc248425898"
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+
+      const select_sql = "SELECT id, fulfillment_status FROM orders";
+      const pending_id_arrays = [];
+      const fulfilled_id_arrays = [];
+
+      connection.query(select_sql, (err, result) => {
+        if (err) throw err;
+
+        result.forEach(element => {
+          element.fulfillment_status == "PENDING" ? pending_id_arrays.push(element.id) : fulfilled_id_arrays.push(element.id);
+        });
+
+        res.result.forEach(element => {
+
+          element.lineItems.forEach(student_element => {
+
+            if (pending_id_arrays.includes(student_element.id)) {
+
+              if (element.fulfillmentStatus != "PENDING") {
+                const update_sql = "UPDATE orders SET fulfillment_status='" + element.fulfillmentStatus + "' WHERE id='" + student_element.id + "'";
+                connection.query(update_sql, (err, result) => {
+                  if (err) throw err;
+                  console.log("update result : " + result);
+                })
+              } else {
+                return;
+              }
+            } else
+              if (fulfilled_id_arrays.includes(student_element.id)) {
+                return;
+              } else {
+                const fullname = student_element.customizations[0].value.split(" ");
+
+                const data = {
+                  order_id: element.orderNumber,   // perfect
+                  purchase_date: (element.modifiedOn).replace(/T|Z/g, " "),    // perfect
+                  enrollment_location: student_element.productName,
+                  enrollment_date: student_element.variantOptions[0].value,
+                  guardian_first_name: element.billingAddress.firstName,    // perfect
+                  guardian_last_name: element.billingAddress.lastName,    // perfect
+                  guardian_email: element.customerEmail,    // perfect  
+                  guardian_phone: element.billingAddress.phone,   // perfect
+                  student_first_name: fullname[0],    // customizable
+                  student_last_name: fullname[1],     // customizable
+                  price: student_element.unitPricePaid.value,
+                  fulfillment_status: element.fulfillmentStatus,
+                  id: student_element.id,
+                };
+
+                const insert_sql = "INSERT INTO orders (order_id, purchase_date, enrollment_location, enrollment_date, guardian_first_name, guardian_last_name, guardian_email, guardian_phone, student_first_name, student_last_name, price, fulfillment_status, id) VALUES ('" + data.order_id + "' , '" + data.purchase_date + "' , '" + data.enrollment_location + "' , '" + data.enrollment_date + "' , '" + data.guardian_first_name + "' , '" + data.guardian_last_name + "' , '" + data.guardian_email + "' , '" + data.guardian_phone + "' , '" + data.student_first_name + "' , '" + data.student_last_name + "' , '" + data.price + "' , '" + data.fulfillment_status + "' , '" + data.id + "')";
+
+                connection.query(insert_sql, (err, result) => {
+                  if (err) throw err;
+                  console.log("insert result : " + result);
+                })
+
+              }
+
+          });
+
+
+
+        });
+      })
+
+      // connection.end((err) => {
+      //   if (err) throw err;
+      // })
+    })
+}, 4000);
+
+
