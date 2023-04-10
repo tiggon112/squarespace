@@ -1,11 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const moment = require("moment");
 const cors = require("cors");
 const mysql = require("mysql");
 
 const api = require("./routes/api");
-const middleware = require("./routes/middleware");
 const intervalController = require("./controllers/intervalController");
 
 const app = express();

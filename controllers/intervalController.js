@@ -1,7 +1,7 @@
 const intervalController = (connection) => {
   fetch("https://api.squarespace.com/1.0/commerce/orders", {
     headers: {
-      Authorization: "Bearer 9a0ca67c-6e6c-4015-b660-6bc248425898",
+      Authorization: "Bearer 52792ea5-2903-444c-ad21-18be67290395",
     },
   })
     .then((res) => res.json())
@@ -102,4 +102,4 @@ const intervalController = (connection) => {
     });
 };
 
-export default intervalController;
+module.exports = intervalController;
