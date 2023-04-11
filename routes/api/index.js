@@ -16,11 +16,15 @@ const {
 const {
   updatePasswordController,
 } = require("../../controllers/api/updatePasswordController");
+const {
+  getLoginAccessController,
+} = require("../../controllers/api/getLoginAccessController");
 
 router.get("/orders", getOrdersController);
 router.post("/getAccessByPassword", getAcessByPasswordController);
 router.post("/ordersByLocation", getOrdersByLocationController);
 router.get("/locations", getLocationsController);
 router.post("/updatePassword", updatePasswordController);
+router.post("/getLoginAccess", getLoginAccessController);
 
 module.exports = router;
