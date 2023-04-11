@@ -42,6 +42,8 @@ const intervalController = (connection) => {
             } else {
               const fullname =
                 student_element.customizations[0].value.split(" ");
+              const age = 
+                student_element.customizations[1].value.split(" ");
 
               const data = {
                 order_id: element.orderNumber, // perfect
@@ -57,10 +59,11 @@ const intervalController = (connection) => {
                 price: student_element.unitPricePaid.value,
                 fulfillment_status: element.fulfillmentStatus,
                 id: student_element.id,
+                age : (age == null || age == undefined || age == '') ? 19 : age,
               };
 
               const insert_sql =
-                "INSERT INTO orders (order_id, purchase_date, enrollment_location, enrollment_date, guardian_first_name, guardian_last_name, guardian_email, guardian_phone, student_first_name, student_last_name, price, fulfillment_status, id) VALUES ('" +
+                "INSERT INTO orders (order_id, purchase_date, enrollment_location, enrollment_date, guardian_first_name, guardian_last_name, guardian_email, guardian_phone, student_first_name, student_last_name, price, fulfillment_status, id, age) VALUES ('" +
                 data.order_id +
                 "' , '" +
                 data.purchase_date +
@@ -86,6 +89,8 @@ const intervalController = (connection) => {
                 data.fulfillment_status +
                 "' , '" +
                 data.id +
+                "' , '" +
+                data.age +
                 "')";
 
               connection.query(insert_sql, (err, result) => {
