@@ -1,11 +1,9 @@
 const moment = require("moment");
 
 exports.getOrdersByLocationController = (req, res) => {
-  const get_sql = "SELECT * FROM orders WHERE enrollment_location='" + req.body.location + "' ORDER BY order_id";
-  console.log("get sql : " + get_sql);
+  const get_sql = "SELECT * FROM orders WHERE enrollment_location LIKE '" + req.body.location + "%' ORDER BY order_id";
 
   req.db.query(get_sql, (err, result) => {
-    console.log(result);
 
     res.json(
       result.map((data) => {
