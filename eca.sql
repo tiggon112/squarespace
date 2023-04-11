@@ -82,7 +82,8 @@ DROP TABLE IF EXISTS `passwords`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passwords` (
   `password` varchar(255) DEFAULT NULL,
-  `page` varchar(255) DEFAULT NULL
+  `page` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,7 +93,7 @@ CREATE TABLE `passwords` (
 
 LOCK TABLES `passwords` WRITE;
 /*!40000 ALTER TABLE `passwords` DISABLE KEYS */;
-INSERT INTO `passwords` VALUES ('U2FsdGVkX1+FUkG4em1q+wXIT4pb+xjMzg+WTBSun1U=','San Francisco'),('U2FsdGVkX18XrFkgG3vjvxqsNmesnQjZ+RLj60SwCmM=','Phoenix'),('U2FsdGVkX19olncY/f8AdastkCd0cs/CRGxa14d4MOk=','Los Angeles'),('U2FsdGVkX18JPwpOjCdWcWNLkUSArqJPyKY9bmX44CU=','San Diego'),('U2FsdGVkX1/v7Uj8ZGZ0illA49kjlYALu8WrMlo3N6k=','Denver'),('U2FsdGVkX1/DD8h60QmSdAcYd3i6vlW4/zQt+2sDSJw=','Fort Lauderdale'),('U2FsdGVkX1/cJD2FWnTsTOyFMiVCx0mlx1qbMfxQlqs=','Miami'),('U2FsdGVkX18VLEYNiGKJlHOunB///phdIGmzVnpCDOo=','Orlando'),('U2FsdGVkX1952BLJ1bLDuNKkqATALLJgslcz/ly0XdU=','St Petersburg'),('U2FsdGVkX1/J/8XWFp2G79KROHz3MDabFLGHibN8HSI=','Tampa'),('U2FsdGVkX19jk5kduWEm3a2kk3lRm6F8uN2VZuWEwNo=','Atlanta'),('U2FsdGVkX1+R6UESM59Bq7I6I7S3U0yUXCCHLipxGGg=','Chicago'),('U2FsdGVkX18TUo9purc5gR5UHnsrqGj99pCjxrgZplk=','Leawood'),('U2FsdGVkX1+esdS8e8su0hVEQcS+7JOwxnatK6IICI0=','New Orleans'),('U2FsdGVkX189NGQlii3V+Ak5qoqoU7LXoEygT4p/5vo=','Baltimore'),('U2FsdGVkX19juXU7Y2QmFN0vHUQeNkGtsIiyQ4MqVkI=','Boston'),('U2FsdGVkX19ZH19E8Vt1n07RinAGjiEA/CHZIhpg840=','Minneapolis'),('U2FsdGVkX1/HhqMd29x6CjkDM5/hb9WsGoZHdb38Vlk=','Seattle'),('U2FsdGVkX18fwI3FynqnAD2EF0A26/X0AeH1jDE3Vmw=','Houston'),('U2FsdGVkX19aSESFUhm4xdTzY6viZUuww0IXatHVFck=','Dallas'),('U2FsdGVkX1/0RvkWaOM96tfuMG1zeGXTyJo4PVATWus=','Austin'),('U2FsdGVkX1/tBT0OB9Vv8hMarzAlqCQwxw5vI8Ti55Q=','Nashville'),('U2FsdGVkX1848xnRB6fUVnBGGAGoA8NiityvLDiXRD8=','Philadelphia'),('U2FsdGVkX1/hATjMX5jzk6Ko0U1YdFhvIpvcpTlQ0es=','Portland'),('U2FsdGVkX1/9nbLONY6ftwAcxQpU0pSinR+WTFEOLbk=','Charlotte'),('U2FsdGVkX1+r7RZEP4Jlk91bdtBPxGqZJqOLqqmhYx4=','New York City'),('U2FsdGVkX1/Dt+Zpr7R6k1Ze4KfHlUATWxYXmYlpEM0=','Newark'),('U2FsdGVkX1+y676FPSihBSEBOPGpI0auhefSVUM7u1Q=','Las Vegas'),('U2FsdGVkX19fToNwqIJCSWLHvANizVcgwkyr7CJ+U2o=','St Louis'),('U2FsdGVkX19AKYX6y/K81sbX1uL6iPnwSHwA5SLnN3E=','Kansas City');
+INSERT INTO `passwords` VALUES ('U2FsdGVkX1+FUkG4em1q+wXIT4pb+xjMzg+WTBSun1U=','San Francisco',NULL),('U2FsdGVkX18XrFkgG3vjvxqsNmesnQjZ+RLj60SwCmM=','Phoenix',NULL),('U2FsdGVkX19olncY/f8AdastkCd0cs/CRGxa14d4MOk=','Los Angeles',NULL),('U2FsdGVkX18JPwpOjCdWcWNLkUSArqJPyKY9bmX44CU=','San Diego',NULL),('U2FsdGVkX1/v7Uj8ZGZ0illA49kjlYALu8WrMlo3N6k=','Denver',NULL),('U2FsdGVkX1/DD8h60QmSdAcYd3i6vlW4/zQt+2sDSJw=','Fort Lauderdale',NULL),('U2FsdGVkX1/cJD2FWnTsTOyFMiVCx0mlx1qbMfxQlqs=','Miami',NULL),('U2FsdGVkX18VLEYNiGKJlHOunB///phdIGmzVnpCDOo=','Orlando',NULL),('U2FsdGVkX1952BLJ1bLDuNKkqATALLJgslcz/ly0XdU=','St Petersburg',NULL),('U2FsdGVkX1/J/8XWFp2G79KROHz3MDabFLGHibN8HSI=','Tampa',NULL),('U2FsdGVkX19jk5kduWEm3a2kk3lRm6F8uN2VZuWEwNo=','Atlanta',NULL),('U2FsdGVkX1+R6UESM59Bq7I6I7S3U0yUXCCHLipxGGg=','Chicago',NULL),('U2FsdGVkX18TUo9purc5gR5UHnsrqGj99pCjxrgZplk=','Leawood',NULL),('U2FsdGVkX1+esdS8e8su0hVEQcS+7JOwxnatK6IICI0=','New Orleans',NULL),('U2FsdGVkX189NGQlii3V+Ak5qoqoU7LXoEygT4p/5vo=','Baltimore',NULL),('U2FsdGVkX19juXU7Y2QmFN0vHUQeNkGtsIiyQ4MqVkI=','Boston',NULL),('U2FsdGVkX19ZH19E8Vt1n07RinAGjiEA/CHZIhpg840=','Minneapolis',NULL),('U2FsdGVkX1/HhqMd29x6CjkDM5/hb9WsGoZHdb38Vlk=','Seattle',NULL),('U2FsdGVkX18fwI3FynqnAD2EF0A26/X0AeH1jDE3Vmw=','Houston',NULL),('U2FsdGVkX19aSESFUhm4xdTzY6viZUuww0IXatHVFck=','Dallas',NULL),('U2FsdGVkX1/0RvkWaOM96tfuMG1zeGXTyJo4PVATWus=','Austin',NULL),('U2FsdGVkX1/tBT0OB9Vv8hMarzAlqCQwxw5vI8Ti55Q=','Nashville',NULL),('U2FsdGVkX1848xnRB6fUVnBGGAGoA8NiityvLDiXRD8=','Philadelphia',NULL),('U2FsdGVkX1/hATjMX5jzk6Ko0U1YdFhvIpvcpTlQ0es=','Portland',NULL),('U2FsdGVkX1/9nbLONY6ftwAcxQpU0pSinR+WTFEOLbk=','Charlotte',NULL),('U2FsdGVkX1+r7RZEP4Jlk91bdtBPxGqZJqOLqqmhYx4=','New York City',NULL),('U2FsdGVkX1/Dt+Zpr7R6k1Ze4KfHlUATWxYXmYlpEM0=','Newark',NULL),('U2FsdGVkX1+y676FPSihBSEBOPGpI0auhefSVUM7u1Q=','Las Vegas',NULL),('U2FsdGVkX19fToNwqIJCSWLHvANizVcgwkyr7CJ+U2o=','St Louis',NULL),('U2FsdGVkX19+0ugcXRIlGevLQohY07IsyG0ZIU9BLws=','Kansas City',NULL),('U2FsdGVkX1+FYLBdjThLNIibE0RhIfOwmUhUVxeBE08=','login','dylan');
 /*!40000 ALTER TABLE `passwords` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -105,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-11 10:35:39
+-- Dump completed on 2023-04-11 15:52:13
