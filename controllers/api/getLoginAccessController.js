@@ -1,8 +1,12 @@
 const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 
 exports.getLoginAccessController = (req, res) => {
-  const password = req.body.password;
-  const page = req.body.page;
+  const {
+    password,
+    page,
+    asAdmin
+  } = req.body;
 
   const get_sql = "SELECT password FROM passwords WHERE page = '" + page + "'";
 
@@ -12,7 +16,11 @@ exports.getLoginAccessController = (req, res) => {
       page
     ).toString(CryptoJS.enc.Utf8);
     if (decrypted_password == password) {
-      res.json("success");
+      jwt.sign({ user: user }, "secretkey", (err, token) => {
+        res.json({
+          token
+        });
+      });
     } else {
       res.json("failed");
     }
