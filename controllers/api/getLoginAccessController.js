@@ -26,12 +26,15 @@ exports.getLoginAccessController = (req, res) => {
         (err, token) => {
           console.log("token : ", token);
           res.json({
+            status: "success",
             token,
           });
         }
       );
     } else {
-      res.json("failed");
+      res.json({
+        status: "failed",
+      });
     }
   });
 };
