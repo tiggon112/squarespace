@@ -1,7 +1,6 @@
 const CryptoJS = require("crypto-js");
 
 exports.updatePasswordController = (req, res) => {
-  console.log("req : ", req);
   const password = req.body.updatedPassword;
   const page = req.body.location;
   const username = req.body.username;

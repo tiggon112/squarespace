@@ -19,12 +19,10 @@ exports.getLoginAccessController = (req, res) => {
     ).toString(CryptoJS.enc.Utf8);
 
     if (decrypted_password == password) {
-      console.log((asAdmin ? "admin" : "user") + " login success");
       jwt.sign(
         { userType: `${asAdmin ? "admin" : "user"}`, expireDate: 3600000 },
         "Entrepreneurscamps",
         (err, token) => {
-          console.log("token : ", token);
           res.json({
             status: "success",
             token,
