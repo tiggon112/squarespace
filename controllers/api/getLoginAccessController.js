@@ -2,25 +2,34 @@ const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 exports.getLoginAccessController = (req, res) => {
-  const {
-    password,
-    page,
-    asAdmin
-  } = req.body;
+  const { password, asAdmin } = req.body;
+  //   const password = "user123456";
+  //   const asAdmin = false;
+  const keyString = "Entrepreneurscamps";
 
-  const get_sql = "SELECT password FROM passwords WHERE page = '" + page + "'";
+  const get_sql =
+    "SELECT password FROM passwords WHERE page = '" +
+    `${asAdmin ? "admin login" : "user login"}` +
+    "'";
 
   req.db.query(get_sql, (err, result) => {
     const decrypted_password = CryptoJS.AES.decrypt(
       result[0].password,
-      page
+      keyString
     ).toString(CryptoJS.enc.Utf8);
+
     if (decrypted_password == password) {
-      jwt.sign({ user: user }, "secretkey", (err, token) => {
-        res.json({
-          token
-        });
-      });
+      console.log((asAdmin ? "admin" : "user") + " login success");
+      jwt.sign(
+        { userType: `${asAdmin ? "admin" : "user"}`, expireDate: 3600000 },
+        "Entrepreneurscamps",
+        (err, token) => {
+          console.log("token : ", token);
+          res.json({
+            token,
+          });
+        }
+      );
     } else {
       res.json("failed");
     }
