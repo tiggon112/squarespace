@@ -1,4 +1,3 @@
-
 const intervalController = (connection) => {
   fetch("https://api.squarespace.com/1.0/commerce/orders", {
     headers: {
@@ -32,7 +31,6 @@ const intervalController = (connection) => {
                   "'";
                 connection.query(update_sql, (err, result) => {
                   if (err) throw err;
-                  console.log("update result : " + result);
                 });
               } else {
                 return;
@@ -42,8 +40,7 @@ const intervalController = (connection) => {
             } else {
               const fullname =
                 student_element.customizations[0].value.split(" ");
-              const age = 
-                student_element.customizations[1].value.split(" ");
+              const age = student_element.customizations[1].value.split(" ");
 
               const data = {
                 order_id: element.orderNumber, // perfect
@@ -59,7 +56,7 @@ const intervalController = (connection) => {
                 price: student_element.unitPricePaid.value,
                 fulfillment_status: element.fulfillmentStatus,
                 id: student_element.id,
-                age : (age == null || age == undefined || age == '') ? 19 : age,
+                age: age == null || age == undefined || age == "" ? 19 : age,
               };
 
               const insert_sql =
@@ -95,7 +92,6 @@ const intervalController = (connection) => {
 
               connection.query(insert_sql, (err, result) => {
                 if (err) throw err;
-                console.log("insert result : " + result);
               });
             }
           });

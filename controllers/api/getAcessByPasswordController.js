@@ -14,13 +14,6 @@ exports.getAcessByPasswordController = (req, res) => {
         result[0].password,
         page
       ).toString(CryptoJS.enc.Utf8);
-      // } else {
-      //   const encrypted_password = CryptoJS.AES.encrypt(password, page).toString();
-      //   const insert_password_sql = "INSERT INTO passwords (password, page) VALUES ('" + encrypted_password + "' , '" + page + "')";
-      //   req.db.query(insert_password_sql, (err, result) => {
-      //     if (err) throw err;
-      //     console.log("result : ", result);
-      //   })
     }
 
     if (password == decrypted_password) {
