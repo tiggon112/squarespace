@@ -18,7 +18,7 @@ exports.getLoginAccessController = (req, res) => {
 
     if (decrypted_password == password) {
       jwt.sign(
-        { userType: `${asAdmin ? "admin" : "user"}`, expireDate: 3600000 },
+        { userType: `${asAdmin ? "admin" : "user"}`, expireDate: 3600 },
         "Entrepreneurscamps",
         (err, token) => {
           res.json({
