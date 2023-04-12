@@ -3,8 +3,6 @@ const jwt = require("jsonwebtoken");
 
 exports.getLoginAccessController = (req, res) => {
   const { password, asAdmin } = req.body;
-  //   const password = "user123456";
-  //   const asAdmin = false;
   const keyString = "Entrepreneurscamps";
 
   const get_sql =
